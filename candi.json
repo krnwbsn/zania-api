@@ -1,0 +1,34 @@
+{
+     "GoVersion": "1.23",
+     "Version": "v1.18.0",
+     "ServiceName": "zania-api",
+     "PackagePrefix": "zania-api",
+     "ProtoSource": "zania-api/api/proto",
+     "Owner": "krina-wibisana",
+     "License": "MIT License",
+     "Year": 2024,
+     "IsMonorepo": false,
+     "RestHandler": true,
+     "GRPCHandler": false,
+     "GraphQLHandler": false,
+     "FiberRestHandler": true,
+     "KafkaHandler": false,
+     "SchedulerHandler": false,
+     "RedisSubsHandler": true,
+     "TaskQueueHandler": false,
+     "PostgresListenerHandler": false,
+     "RabbitMQHandler": false,
+     "IsWorkerActive": true,
+     "RedisDeps": true,
+     "SQLDeps": true,
+     "MongoDeps": false,
+     "SQLUseGORM": true,
+     "ArangoDeps": false,
+     "SQLDriver": "postgres",
+     "WorkerPlugins": null,
+     "Modules": [
+          {
+               "ModuleName": "data-management"
+          }
+     ]
+}

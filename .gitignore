@@ -1,0 +1,6 @@
+bin
+vendor
+main_service.go
+zania-api
+coverage.txt
+.env
