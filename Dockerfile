@@ -1,5 +1,5 @@
 # Stage 1
-FROM golang:1.21.5-alpine3.19 AS dependency_builder
+FROM golang:1.23-alpine3.19 AS dependency_builder
 
 WORKDIR /go/src
 ENV GO111MODULE=on
@@ -29,6 +29,5 @@ WORKDIR /usr/app/
 ENV BUILD_NUMBER=$BUILD_NUMBER
 
 COPY --from=service_builder /usr/app/bin bin
-COPY --from=service_builder /usr/app/.env .env
 
 ENTRYPOINT ["./bin"]
