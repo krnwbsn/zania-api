@@ -5,7 +5,6 @@ package repository
 import (
 	"context"
 
-	"strings"
 	"time"
 
 	"zania-api/internal/modules/data-management/domain"
@@ -39,12 +38,12 @@ func (r *dataManagementRepoSQL) FetchAll(ctx context.Context, filter *domain.Fil
 	defer func() { trace.Finish(tracer.FinishWithError(err)) }()
 
 	if filter.OrderBy == "" {
-		filter.OrderBy = "updated_at"
+		filter.OrderBy = "position"
 	}
 
 	db := r.setFilterDataManagement(shared.SetSpanToGorm(ctx, r.readDB), filter).Order(clause.OrderByColumn{
 		Column: clause.Column{Name: filter.OrderBy},
-		Desc:   strings.ToUpper(filter.Sort) == "DESC",
+		Desc:   false,
 	})
 	if filter.Limit > 0 || !filter.ShowAll {
 		db = db.Limit(filter.Limit).Offset(filter.CalculateOffset())
