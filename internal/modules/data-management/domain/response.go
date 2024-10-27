@@ -19,6 +19,7 @@ type ResponseDataManagement struct {
 	Type      string `json:"type"`
 	Title     string `json:"title"`
 	Position  string `json:"position"`
+	ImageUrl  string `json:"imageUrl"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -29,6 +30,7 @@ func (r *ResponseDataManagement) Serialize(source *shareddomain.DataManagement) 
 	r.Type = source.Type
 	r.Title = source.Title
 	r.Position = source.Position
+	r.ImageUrl = source.ImageUrl
 	r.CreatedAt = source.CreatedAt.Format(time.RFC3339)
 	r.UpdatedAt = source.UpdatedAt.Format(time.RFC3339)
 }
