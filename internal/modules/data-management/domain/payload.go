@@ -2,7 +2,7 @@ package domain
 
 type DataManagementSequence struct {
 	ID       int `json:"id"`
-	Position int `json:"sequence"`
+	Position int `json:"position"`
 }
 
 type UpdateDataManagementSequenceRequest struct {
