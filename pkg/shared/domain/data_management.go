@@ -11,8 +11,8 @@ type DataManagement struct {
 	Title     string    `gorm:"column:title;type:varchar(255)" json:"title"`
 	Position  int       `gorm:"column:position;type:int" json:"position"`
 	ImageUrl  string    `gorm:"column:image_url;type:varchar(255)" json:"imageUrl"`
-	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
+	CreatedAt time.Time `gorm:"column:created_at" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"column:updated_at" json:"updatedAt"`
 }
 
 // TableName return table name of DataManagement model

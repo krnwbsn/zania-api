@@ -20,8 +20,8 @@ type ResponseDataManagement struct {
 	Title     string `json:"title"`
 	Position  int    `json:"position"`
 	ImageUrl  string `json:"imageUrl"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	CreatedAt string `json:"createdAt"`
+	UpdatedAt string `json:"updatedAt"`
 }
 
 // Serialize from db model
