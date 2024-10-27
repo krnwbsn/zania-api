@@ -55,4 +55,3 @@ func GetSharedUsecase() Usecase {
 func (uc *usecaseUow) DataManagement() datamanagementusecase.DataManagementUsecase {
 	return uc.DataManagementUsecase
 }
-

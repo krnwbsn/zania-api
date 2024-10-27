@@ -19,3 +19,7 @@ func (r *RequestDataManagement) Deserialize() (res shareddomain.DataManagement) 
 	res.Position = r.Position
 	return
 }
+
+// RequestUpdateSequenceDataManagement model
+type RequestUpdateSequenceDataManagement struct {
+}

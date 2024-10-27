@@ -15,6 +15,7 @@ import (
 // DataManagementUsecase abstraction
 type DataManagementUsecase interface {
 	GetAllDataManagement(ctx context.Context, filter *domain.FilterDataManagement) (data domain.ResponseDataManagementList, err error)
+	UpdateDataManagementSequence(ctx context.Context, sequences []domain.DataManagementSequence) error
 }
 
 type dataManagementUsecaseImpl struct {
@@ -23,7 +24,6 @@ type dataManagementUsecaseImpl struct {
 	repoSQL       repository.RepoSQL
 }
 
-// NewDataManagementUsecase usecase impl constructor
 func NewDataManagementUsecase(deps dependency.Dependency) (DataManagementUsecase, func(sharedUsecase common.Usecase)) {
 	uc := &dataManagementUsecaseImpl{
 		deps:    deps,

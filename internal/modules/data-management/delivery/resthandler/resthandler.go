@@ -3,6 +3,8 @@
 package resthandler
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
 
 	"zania-api/internal/modules/data-management/domain"
@@ -35,6 +37,7 @@ func (h *RestHandler) Mount(root interfaces.RESTRouter) {
 	v1DataManagement := root.Group(candihelper.V1 + "/data-management")
 
 	v1DataManagement.GET("/", h.getAllDataManagement)
+	v1DataManagement.PUT("/update-sequence", h.updateDataManagementSequence)
 }
 
 // GetAllDataManagement documentation
@@ -77,4 +80,35 @@ func (h *RestHandler) getAllDataManagement(rw http.ResponseWriter, req *http.Req
 	response := wrapper.NewHTTPResponse(http.StatusOK, message, result.Data)
 	response.Meta = result.Meta
 	response.JSON(rw)
+}
+
+// UpdateSequenceDataManagement documentation
+// @Summary         Update Sequence of DataManagement
+// @Description     API for updating sequence (position) of multiple DataManagement entries
+// @Tags            DataManagement
+// @Accept          json
+// @Produce         json
+// @Param           data  body domain.UpdateDataManagementSequenceRequest  true  "Update Sequence Payload"
+// @Success         200   {object}   wrapper.HTTPResponse
+// @Failure         400   {object}   wrapper.HTTPResponse
+// @Router          /v1/data-management/update-sequence [put]
+func (h *RestHandler) updateDataManagementSequence(rw http.ResponseWriter, req *http.Request) {
+	trace, ctx := tracer.StartTraceWithContext(req.Context(), "DataManagementDeliveryREST:UpdateSequence")
+	defer trace.Finish()
+
+	var payload domain.UpdateDataManagementSequenceRequest
+
+	body, _ := io.ReadAll(req.Body)
+	if err := json.Unmarshal(body, &payload); err != nil {
+		wrapper.NewHTTPResponse(http.StatusBadRequest, err.Error()).JSON(rw)
+		return
+	}
+
+	err := h.uc.DataManagement().UpdateDataManagementSequence(ctx, payload.Sequence)
+	if err != nil {
+		wrapper.NewHTTPResponse(http.StatusBadRequest, err.Error()).JSON(rw)
+		return
+	}
+
+	wrapper.NewHTTPResponse(http.StatusOK, "Sequences updated successfully").JSON(rw)
 }

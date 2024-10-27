@@ -32,3 +32,7 @@ func (r *ResponseDataManagement) Serialize(source *shareddomain.DataManagement) 
 	r.CreatedAt = source.CreatedAt.Format(time.RFC3339)
 	r.UpdatedAt = source.UpdatedAt.Format(time.RFC3339)
 }
+
+// ResponseUpdateSequenceDataManagement model
+type ResponseUpdateSequenceDataManagement struct {
+}

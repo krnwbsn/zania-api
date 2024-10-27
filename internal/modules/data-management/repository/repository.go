@@ -18,4 +18,5 @@ type DataManagementRepository interface {
 	Find(ctx context.Context, filter *domain.FilterDataManagement) (shareddomain.DataManagement, error)
 	Save(ctx context.Context, data *shareddomain.DataManagement, updateOptions ...candishared.DBUpdateOptionFunc) error
 	Delete(ctx context.Context, filter *domain.FilterDataManagement) (err error)
+	UpdateSequence(ctx context.Context, sequences []domain.DataManagementSequence) error
 }

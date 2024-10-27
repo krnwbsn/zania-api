@@ -4,9 +4,9 @@ package repository
 
 import (
 	"context"
-	
-	"time"
+
 	"strings"
+	"time"
 
 	"zania-api/internal/modules/data-management/domain"
 	shareddomain "zania-api/pkg/shared/domain"
@@ -15,6 +15,7 @@ import (
 	"github.com/golangid/candi/tracer"
 
 	"zania-api/pkg/shared"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
@@ -24,7 +25,6 @@ type dataManagementRepoSQL struct {
 	updateTools     *candishared.DBUpdateTools
 }
 
-// NewDataManagementRepoSQL mongo repo constructor
 func NewDataManagementRepoSQL(readDB, writeDB *gorm.DB) DataManagementRepository {
 	return &dataManagementRepoSQL{
 		readDB: readDB, writeDB: writeDB,
@@ -60,7 +60,7 @@ func (r *dataManagementRepoSQL) Count(ctx context.Context, filter *domain.Filter
 	var total int64
 	r.setFilterDataManagement(shared.SetSpanToGorm(ctx, r.readDB), filter).Model(&shareddomain.DataManagement{}).Count(&total)
 	count = int(total)
-	
+
 	trace.Log("count", count)
 	return
 }
@@ -106,7 +106,7 @@ func (r *dataManagementRepoSQL) Delete(ctx context.Context, filter *domain.Filte
 }
 
 func (r *dataManagementRepoSQL) setFilterDataManagement(db *gorm.DB, filter *domain.FilterDataManagement) *gorm.DB {
-	
+
 	if filter.ID != nil {
 		db = db.Where("id = ?", *filter.ID)
 	}
@@ -119,4 +119,24 @@ func (r *dataManagementRepoSQL) setFilterDataManagement(db *gorm.DB, filter *dom
 	}
 
 	return db
+}
+
+func (r *dataManagementRepoSQL) UpdateSequence(ctx context.Context, sequences []domain.DataManagementSequence) error {
+	trace, ctx := tracer.StartTraceWithContext(ctx, "DataManagementRepoSQL:UpdateSequence")
+	defer trace.Finish()
+
+	db := r.writeDB
+	if tx, ok := candishared.GetValueFromContext(ctx, candishared.ContextKeySQLTransaction).(*gorm.DB); ok {
+		db = tx
+	}
+
+	for _, seq := range sequences {
+		if err := shared.SetSpanToGorm(ctx, db).
+			Model(&shareddomain.DataManagement{}).
+			Where("id = ?", seq.ID).
+			Update("position", seq.Position).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }
