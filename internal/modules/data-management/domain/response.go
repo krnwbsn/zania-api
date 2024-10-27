@@ -18,7 +18,7 @@ type ResponseDataManagement struct {
 	ID        int    `json:"id"`
 	Type      string `json:"type"`
 	Title     string `json:"title"`
-	Position  string `json:"position"`
+	Position  int    `json:"position"`
 	ImageUrl  string `json:"imageUrl"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`

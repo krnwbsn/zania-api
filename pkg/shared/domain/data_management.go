@@ -9,7 +9,7 @@ type DataManagement struct {
 	ID        int       `gorm:"column:id;primary_key" json:"id"`
 	Type      string    `gorm:"column:type;type:varchar(255)" json:"type"`
 	Title     string    `gorm:"column:title;type:varchar(255)" json:"title"`
-	Position  string    `gorm:"column:position;type:varchar(255)" json:"position"`
+	Position  int       `gorm:"column:position;type:int" json:"position"`
 	ImageUrl  string    `gorm:"column:image_url;type:varchar(255)" json:"imageUrl"`
 	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`

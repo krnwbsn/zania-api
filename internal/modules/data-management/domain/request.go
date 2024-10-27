@@ -9,7 +9,7 @@ type RequestDataManagement struct {
 	ID       int    `json:"id"`
 	Type     string `json:"type"`
 	Title    string `json:"title"`
-	Position string `json:"position"`
+	Position int    `json:"position"`
 }
 
 // Deserialize to db model
